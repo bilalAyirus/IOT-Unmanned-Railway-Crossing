@@ -1,0 +1,38 @@
+#include<Servo.h>
+#define trigpin 7
+#define echopin 6
+Servo servo;
+
+void setup(){
+Serial.begin(9600);
+pinMode(trigpin,OUTPUT);
+pinMode(echopin,INPUT);
+servo.attach(9);
+}
+
+void loop(){
+long duration,distance;
+digitalWrite(trigpin,LOW);
+delayMicroseconds(2);
+digitalWrite(trigpin,HIGH);
+delayMicroseconds(10);
+digitalWrite(trigpin,LOW);
+duration=pulseIn(echopin,HIGH);
+distance=(duration/2)/29.1;
+
+if(distance<25){
+Serial.println("distance is less than 25");
+servo.write(90);
+delay(2000);
+}
+
+else{
+servo.write(0);
+delay(50);
+}
+
+}
+
+
+
+}
